@@ -11,52 +11,45 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poscodx.guestbook.repository.GuestbookRepositoryWithJdbcContext;
+import com.poscodx.guestbook.repository.GuestbookRepositoryWithJdbcTemplate;
 import com.poscodx.guestbook.repository.GuestbookRepositoryWithRawjdbc;
 import com.poscodx.guestbook.vo.GuestbookVo;
-
-
 
 @Controller
 public class GuestbookController {
 	@Autowired
-	private GuestbookRepositoryWithRawjdbc guestRepository1;
+	private GuestbookRepositoryWithRawjdbc guestbookRepository1;
 	
 	@Autowired
-	private GuestbookRepositoryWithJdbcContext guestRepository2;
+	private GuestbookRepositoryWithJdbcContext guestbookRepository2;
+	
+	@Autowired
+	private GuestbookRepositoryWithJdbcTemplate guestbookRepository3;
+	
 	
 	@RequestMapping("/")
 	public String index(Model model) {
-		List<GuestbookVo> list = guestRepository1.findAll();
+		List<GuestbookVo> list = guestbookRepository3.findAll();
 		model.addAttribute("list", list);
+		
 		return "index";
 	}
-	
-	@RequestMapping(value="/add", method=RequestMethod.GET)
-	public String add() {
-		return "add";
-	}
-	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
+
+	@RequestMapping("/add")
 	public String add(GuestbookVo vo) {
-		guestRepository2.insert(vo);
+		guestbookRepository3.insert(vo);
 		return "redirect:/";
 	}
+
+	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
+	public String delete(@PathVariable("no") Long no, Model model) {
+		model.addAttribute("no", no);
+		return "delete";
+	}
 	
-	
-	@RequestMapping(value="/deleteform/{no}", method=RequestMethod.GET)
-    public String deleteform(@PathVariable("no") Long no, Model model) {
-        model.addAttribute("no", no);
-        return "deleteform"; 
-    }
-	
-	@RequestMapping(value="/delete", method=RequestMethod.GET)
-    public String delete() {
-    	return "delete";
-    }
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
-    public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=false, defaultValue="") String password) {
-        guestRepository2.deleteByNoAndPassword(no, password);
-        return "redirect:/";
-    }
-	
+	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
+		guestbookRepository3.deleteByNoAndPassword(no, password);
+		return "redirect:/";
+	}
 }

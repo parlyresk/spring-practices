@@ -43,7 +43,7 @@
 								<td>${guestbookVo.name}</td>
 								<td>${guestbookVo.regDate}</td>
 								<td><a
-									href="${pageContext.request.contextPath}/deleteform/${guestbookVo.no}">삭제</a></td>
+									href="${pageContext.request.contextPath}/delete/${guestbookVo.no}">삭제</a></td>
 							</tr>
 							<tr>
 								<td colspan="4">${fn:replace(guestbookVo.contents, newline, '<br/>')}

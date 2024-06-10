@@ -17,9 +17,8 @@
 <body>
 	<div id="content">
 		<div id="guestbook">
-			<form action="${pageContext.request.contextPath}/add"
-				method="post">
-				<table>
+			<form action="${pageContext.request.contextPath}/add" method="post">
+				<table border=1 width=500>
 					<tr>
 						<td>이름</td>
 						<td><input type="text" name="name"></td>
@@ -27,34 +26,35 @@
 						<td><input type="password" name="password"></td>
 					</tr>
 					<tr>
-						<td colspan=4><textarea name="contents" id="content"></textarea></td>
+						<td colspan=4><textarea name="contents" cols=60 rows=5></textarea></td>
 					</tr>
 					<tr>
-						<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>
+						<td colspan=4 align=right><input type="submit" value="등록"></td>
 					</tr>
 				</table>
 			</form>
-			<ul>
-				<c:set var="count" value="${fn:length(list) }" />
-				<c:forEach var="guestbookVo" items="${list}" varStatus="status">
-					<li>
-						<table width="510" border="1">
-							<tr>
-								<td>${count-status.index}</td>
-								<td>${guestbookVo.name}</td>
-								<td>${guestbookVo.regDate}</td>
-								<td><a
-									href="${pageContext.request.contextPath}/delete/${guestbookVo.no}">삭제</a></td>
-							</tr>
-							<tr>
-								<td colspan="4">${fn:replace(guestbookVo.contents, newline, '<br/>')}
 
-								</td>
-							</tr>
-						</table> <br>
-					</li>
-				</c:forEach>
-			</ul>
+			<c:set var="count" value="${fn:length(list) }" />
+			<c:forEach var="guestbookVo" items="${list}" varStatus="status">
+
+				<table width="510" border="1">
+					<tr>
+						<td>${count-status.index}</td>
+						<td>${guestbookVo.name}</td>
+						<td>${guestbookVo.regDate}</td>
+						<td><a
+							href="${pageContext.request.contextPath}/delete/${guestbookVo.no}">삭제</a></td>
+					</tr>
+					<tr>
+						<td colspan="4">${fn:replace(guestbookVo.contents, newline, '<br/>')}
+
+						</td>
+					</tr>
+				</table>
+				<br>
+
+			</c:forEach>
+
 		</div>
 	</div>
 </body>

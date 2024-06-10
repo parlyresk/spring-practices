@@ -13,7 +13,9 @@ public class MainApp {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("config/applicationContext.xml");
 		
 		ProductService ps = ac.getBean(ProductService.class);
+		
 		ProductVo vo = ps.find("TV");
+		
 		System.out.println(vo);
 		
 		((AbstractApplicationContext)ac).close();

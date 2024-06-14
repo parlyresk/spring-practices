@@ -6,6 +6,14 @@ public class DVDPlayer {
 	public DVDPlayer(DigitalVideoDisc dvd) {
 		this.dvd = dvd;
 	}
+	
+	public DVDPlayer() {
+		
+	}
+
+	public void setDvd(DigitalVideoDisc dvd) {
+		this.dvd = dvd;
+	}
 	public String play() {
 		return dvd.play();
 	}

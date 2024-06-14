@@ -30,4 +30,18 @@ public class DVDPlayerConfig {
 		return new DVDPlayer(dvd);
 
 	}
+
+	// 주입(Injection)하기 3
+	// Parameter로 bean을 전달하는 방법
+	// setter 주입
+	@Bean("dvdPlayer03")
+	public DVDPlayer dvdPlayer3(DigitalVideoDisc dvd) {
+		DVDPlayer dvdPlayer = new DVDPlayer();
+		dvdPlayer.setDvd(dvd);
+		return dvdPlayer;
+
+	}
+	
+	
+	
 }
